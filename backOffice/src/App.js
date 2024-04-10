@@ -13,7 +13,7 @@
 // * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // */
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, createContext } from "react";
 
 // // react-router components
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
@@ -57,6 +57,7 @@ import SignIn from "layouts/authentication/sign-in";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "./layouts/dashboard";
 
+export const UserContext = createContext()
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
   const {
@@ -72,6 +73,7 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   // const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
+  const user = {role:'admin'}
 
   //   // Cache for the rtl
   //   // useMemo(() => {
@@ -205,29 +207,31 @@ export default function App() {
   // }
 
   return (
-    <ThemeProvider theme={darkMode ? themeDark : theme}>
-      <CssBaseline />
-      {layout === "dashboard" && (
-        <>
-          <Sidenav
-            color={sidenavColor}
-            brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-            brandName="Material Dashboard 2"
-            routes={routes}
-            onMouseEnter={handleOnMouseEnter}
-            onMouseLeave={handleOnMouseLeave}
-          />
-          <Configurator />
-          {configsButton}
-        </>
-      )}
-      {/* {layout === "vr" && <Configurator />} */}
-      <Routes>
-        {/* <Route path='/dashboard' element={<PrivateRoute component={Dashboard} />} /> */}
-        {getRoutes(routes)},
-        <Route path='*' element={<Navigate to='/dashboard' />} />
-        {/* <Route path="*" element={<Navigate to="/dashboard" />} /> */}
-      </Routes>
-    </ThemeProvider>
+    <UserContext.Provider value={{user:user}}>
+      <ThemeProvider theme={darkMode ? themeDark : theme}>
+        <CssBaseline />
+        {layout === "dashboard" && (
+          <>
+            <Sidenav
+              color={sidenavColor}
+              brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
+              brandName="Material Dashboard 2"
+              routes={routes}
+              onMouseEnter={handleOnMouseEnter}
+              onMouseLeave={handleOnMouseLeave}
+            />
+            <Configurator />
+            {configsButton}
+          </>
+        )}
+        {/* {layout === "vr" && <Configurator />} */}
+        <Routes>
+          {/* <Route path='/dashboard' element={<PrivateRoute component={Dashboard} />} /> */}
+          {getRoutes(routes)},
+          <Route path='*' element={<Navigate to='/dashboard' />} />
+          {/* <Route path="*" element={<Navigate to="/dashboard" />} /> */}
+        </Routes>
+      </ThemeProvider>
+    </UserContext.Provider>
   );
 }

@@ -47,7 +47,10 @@ import SignUp from "layouts/authentication/sign-up";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
-import PrivateRoute from "PrivateRoute";
+import PrivateRoute from "./PrivateRoute";
+import Reclamations from "pages/Reclamations";
+import Users from "pages/Users";
+import ViewReclamation from "pages/ViewReclamation";
 
 const routes = [
   {
@@ -65,16 +68,37 @@ const routes = [
     key: "dashboard",
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
-    component: <PrivateRoute component={Dashboard} />,
+    component: <PrivateRoute component={Dashboard} roles={['admin']} />,
   },
   {
     type: "collapse",
-    name: "Tables",
-    key: "tables",
+    name: "Reclamations",
+    key: "reclamations",
     icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/tables",
-    component: <PrivateRoute component={Tables} />,
+    route: "/reclamations",
+    component: <PrivateRoute component={Reclamations} roles={['admin', 'manager']} />,
+    collapse: [
+      {
+        
+       
+        name: "ViewReclamation",
+        key: "viewreclamation",
+        icon: <Icon fontSize="small">receipt_long</Icon>,
+        route: "/view",
+        component: <ViewReclamation />,
+      },
+    ]
   },
+  {
+    type: "collapse",
+    name: "Users",
+    key: "users",
+    icon: <Icon fontSize="small">table_view</Icon>,
+    route: "/users",
+    component: <PrivateRoute component={Users} roles={['admin', 'manager']} />,
+
+  },
+
   {
     type: "collapse",
     name: "Billing",
