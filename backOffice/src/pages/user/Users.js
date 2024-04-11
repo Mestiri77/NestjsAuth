@@ -1,6 +1,4 @@
 import { DataGridPremium, GridToolbar } from '@mui/x-data-grid-premium';
-import DashboardLayout from 'examples/LayoutContainers/DashboardLayout'
-import { DashboardNavbar } from 'examples/Navbars/DashboardNavbar/DashboardNavbar'
 import React from 'react'
 import Icon from "@mui/material/Icon";
 import IconButton from "@mui/material/IconButton";
@@ -81,8 +79,7 @@ export default function Users() {
     ];
     return (
         <div>
-            <DashboardLayout >
-                <DashboardNavbar />
+           
                 <Box sx={{ height: 520, width: '100%' }}>
                     <DataGridPremium
                         // {...data}
@@ -107,7 +104,7 @@ export default function Users() {
                     // checkboxSelection
                     />
                 </Box>
-            </DashboardLayout>
+
 
 
         </div>

@@ -7,10 +7,10 @@ import { UserContext } from "App";
 function PrivateRoute({ component: Component, roles, ...rest }) {
     const { user } = useContext(UserContext)
     // Vérification de l'authentification de l'utilisateur
-    const isAuthenticated = !!localStorage.getItem("token");
+    
 
     // Rendu conditionnel : si l'utilisateur est authentifié, afficher le composant, sinon rediriger vers la page de connexion
-    return isAuthenticated ?
+    return user ?
         roles.includes(user.role) ?
             <Component /> : <Navigate to="/dashboard" replace />
         : <Navigate to="/authentication/sign-in" replace />;

@@ -7,8 +7,11 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Box from '@mui/material/Box';
+import {Button} from 'react-bootstrap'
+import {useNavigate}from 'react-router-dom'
 
 export default function Reclamations() {
+  const navigate=useNavigate()
   const columns = [
     { field: 'id', headerName: 'ID', width: 90 },
     {
@@ -81,8 +84,10 @@ export default function Reclamations() {
   ];
   return (
     <div>
-      <DashboardLayout >
-        <DashboardNavbar />
+  
+       <div className='d-flex justify-content-end'>
+        <Button onClick={()=>{navigate('add')}}>Add</Button>
+       </div>
         <Box sx={{ height: 520, width: '100%' }}>
           <DataGridPremium
             // {...data}
@@ -107,7 +112,7 @@ export default function Reclamations() {
           // checkboxSelection
           />
         </Box>
-      </DashboardLayout>
+    
 
 
     </div>

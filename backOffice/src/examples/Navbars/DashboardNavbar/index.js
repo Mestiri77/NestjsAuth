@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 // react-router components
 import { useLocation, Link, useNavigate } from "react-router-dom";
@@ -44,6 +44,7 @@ import {
   navbarIconButton,
   navbarMobileMenu,
 } from "examples/Navbars/DashboardNavbar/styles";
+import Nav from "react-bootstrap/Nav";
 
 // Material Dashboard 2 React context
 import {
@@ -53,6 +54,9 @@ import {
   setOpenConfigurator,
 } from "context";
 import axios from "axios";
+import { UserContext } from "App";
+import Accordion from "react-bootstrap/Accordion";
+import Settings from "examples/Configurator/Settings";
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
@@ -68,7 +72,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
     if (fixedNavbar) {
       setNavbarType("sticky");
     } else {
-      setNavbarType("static"); zrgdsq
+      setNavbarType("static");
     }
 
     // A function that sets the transparent state of the navbar.
@@ -95,10 +99,9 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const handleOpenProfile = (event) => setOpenProfile(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
   const handleCloseProfile = () => setOpenProfile(false);
-  const userInfo = localStorage.getItem("userName") + " " + localStorage.getItem("email");
+  const { user, setUser } = useContext(UserContext);
   // Render the profile menu
   const renderMenuProfile = () => (
-
     <Menu
       anchorEl={openProfile}
       anchorReference={null}
@@ -108,10 +111,21 @@ function DashboardNavbar({ absolute, light, isMini }) {
       }}
       open={Boolean(openProfile)}
       onClose={handleCloseProfile}
-      sx={{ mt: 2 }}
+      sx={{ mt: 2,width:150 }}
     >
-      <NotificationItem title={userInfo} />
-      <NotificationItem title="last name" />
+      
+      <Nav.Item className="btn btn-light w-100 text-start">
+        <Nav.Link href="/profile">Profile</Nav.Link>
+      </Nav.Item>
+      {/* <NotificationItem title={user.lastName} /> */}
+      <Accordion className="">
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>Settings</Accordion.Header>
+          <Accordion.Body>
+            <Settings />
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
     </Menu>
   );
 
@@ -150,7 +164,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const isUserSignedIn = !!localStorage.getItem("token");
   const handelLogOut = () => {
     localStorage.removeItem("token");
-    navigate("/authentication/sign-in");
+    setUser(null);
   };
 
   return (
@@ -160,90 +174,89 @@ function DashboardNavbar({ absolute, light, isMini }) {
       sx={(theme) => navbar(theme, { transparentNavbar, absolute, light, darkMode })}
     >
       <Toolbar sx={(theme) => navbarContainer(theme)}>
-        <MDBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
-          <Breadcrumbs icon="home" title={route[route.length - 1]} route={route} light={light} />
-        </MDBox>
-        {isMini ? null : (
-          <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
-            {/* <MDBox pr={1}>
+        <div className="d-flex justify-content-between w-100">
+          <MDBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
+            <div className="d-flex gap-3">
+              <IconButton
+                size="small"
+                disableRipple
+                color="inherit"
+                sx={navbarMobileMenu}
+                onClick={handleMiniSidenav}
+              >
+                <Icon sx={iconsStyle} fontSize="medium">
+                  {miniSidenav ? "menu_open" : "menu"}
+                </Icon>
+              </IconButton>
+              <Breadcrumbs
+                icon="home"
+                title={route[route.length - 1]}
+                route={route}
+                light={light}
+              />
+            </div>
+          </MDBox>
+          {isMini ? null : (
+            <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
+              {/* <MDBox pr={1}>
               <MDInput label="Search here" />
             </MDBox> */}
-            <MDBox color={light ? "white" : "inherit"}>
-              {isUserSignedIn ? (
-                <>
-                  <Link to="/authentication/sign-in/basic">
+              <MDBox color={light ? "white" : "inherit"}>
+                {isUserSignedIn ? (
+                  <>
                     <IconButton
-                      sx={navbarIconButton}
                       size="small"
                       disableRipple
-                      title="delet************e"
+                      color="inherit"
+                      sx={navbarIconButton}
+                      onClick={handleConfiguratorOpen}
+                    >
+                      <Icon sx={iconsStyle}>settings</Icon>
+                    </IconButton>
+                    <IconButton
+                      size="small"
+                      disableRipple
+                      color="inherit"
+                      sx={navbarIconButton}
+                      aria-controls="notification-menu"
+                      aria-haspopup="true"
+                      variant="contained"
+                      onClick={handleOpenProfile}
                     >
                       <Icon sx={iconsStyle}>account_circle</Icon>
                     </IconButton>
-                  </Link>
-                  <IconButton
-                    size="small"
-                    disableRipple
-                    color="inherit"
-                    sx={navbarMobileMenu}
-                    onClick={handleMiniSidenav}
-                  >
-                    <Icon sx={iconsStyle} fontSize="medium">
-                      {miniSidenav ? "menu_open" : "menu"}
-                    </Icon>
-                  </IconButton>
-                  <IconButton
-                    size="small"
-                    disableRipple
-                    color="inherit"
-                    sx={navbarIconButton}
-                    onClick={handleConfiguratorOpen}
-                  >
-                    <Icon sx={iconsStyle}>settings</Icon>
-                  </IconButton>
-                  <IconButton
-                    size="small"
-                    disableRipple
-                    color="inherit"
-                    sx={navbarIconButton}
-                    aria-controls="notification-menu"
-                    aria-haspopup="true"
-                    variant="contained"
-                    onClick={handleOpenProfile}
-                  >
-                    <Icon sx={iconsStyle}>account_circle</Icon>
-                  </IconButton>
-                  <IconButton
-                    size="small"
-                    disableRipple
-                    color="inherit"
-                    sx={navbarIconButton}
-                    aria-controls="notification-menu"
-                    aria-haspopup="true"
-                    variant="contained"
-                    onClick={handleOpenMenu}
-                  >
-                    <Icon sx={iconsStyle}>notifications</Icon>
-                  </IconButton>
-                  {renderMenu()}
-                  {renderMenuProfile()}
-                  <IconButton
-                    size="small"
-                    disableRipple
-                    color="inherit"
-                    sx={navbarIconButton}
-                    onClick={handelLogOut}
-                  >
-                    <Icon sx={iconsStyle}>logout</Icon>
-                  </IconButton>
-                  <h4>{userName}</h4>
-                </>
-              ) : (
-                <></>
-              )}
+                    <IconButton
+                      size="small"
+                      disableRipple
+                      color="inherit"
+                      sx={navbarIconButton}
+                      aria-controls="notification-menu"
+                      aria-haspopup="true"
+                      variant="contained"
+                      onClick={handleOpenMenu}
+                    >
+                      <Icon sx={iconsStyle}>notifications</Icon>
+                    </IconButton>
+                    {renderMenu()}
+                    {renderMenuProfile()}
+                    <IconButton
+                      size="small"
+                      disableRipple
+                      color="inherit"
+                      sx={navbarIconButton}
+                      onClick={handelLogOut}
+                    >
+                      <Icon sx={iconsStyle}>logout</Icon>
+                    </IconButton>
+                    {/* <h4>{user.fistName + " " + user.lastName}</h4> */}
+                  </>
+                ) : (
+                  <></>
+                )}
+              </MDBox>
             </MDBox>
-          </MDBox>
-        )}
+          )}
+        </div>
       </Toolbar>
     </AppBar>
   );
