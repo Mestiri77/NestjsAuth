@@ -18,30 +18,15 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "App";
 
-import { PrimeReactProvider } from 'primereact/api';
-
-// import './assets/prime/index.css';
-// import './assets/prime/flags.css';
-// import 'primeicons/primeicons.css';
-// import 'primeflex/primeflex.css';
-// import 'primereact/resources/primereact.css';
-// import 'primereact/resources/themes/lara-light-indigo/theme.css';
-// Material Dashboard 2 React Context Provider
 import { MaterialUIControllerProvider } from "context";
-
-import "primereact/resources/themes/lara-light-cyan/theme.css";
 
 const container = document.getElementById("app");
 const root = createRoot(container);
 
 root.render(
-  <BrowserRouter>
-    <MaterialUIControllerProvider>
-      <PrimeReactProvider>
-
-        <App />
-      </PrimeReactProvider>
-
-    </MaterialUIControllerProvider>
-  </BrowserRouter>
+  <MaterialUIControllerProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </MaterialUIControllerProvider>
 );

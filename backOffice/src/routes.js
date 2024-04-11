@@ -47,34 +47,83 @@ import SignUp from "layouts/authentication/sign-up";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
-import PrivateRoute from "PrivateRoute";
+import PrivateRoute from "./PrivateRoute";
+
+import Users from "pages/user/Users";
+
+import Reclamations from "pages/reaclamation/Reclamations";
+import ViewReclamation from "pages/reaclamation/ViewReclamation";
+import AddUser from "pages/user/AddUser";
+import ViewUser from "pages/user/ViewUser";
+import AddReclamation from "pages/reaclamation/AddReaclamation";
 
 const routes = [
-  {
-    type: "collapse",
-    name: "Sign In",
-    key: "sign-in",
-    icon: <Icon fontSize="small">login</Icon>,
-    route: "/authentication/sign-in",
-    component: <SignIn />,
-    // path: "/authentication/sign-in",
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Sign In",
+  //   key: "sign-in",
+  //   icon: <Icon fontSize="small">login</Icon>,
+  //   route: "/authentication/sign-in",
+  //   component: <SignIn />,
+  //   // path: "/authentication/sign-in",
+  // },
   {
     type: "collapse",
     name: "Dashboard",
     key: "dashboard",
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
-    component: <PrivateRoute component={Dashboard} />,
+    component: <PrivateRoute component={Dashboard} roles={["admin"]} />,
   },
   {
     type: "collapse",
-    name: "Tables",
-    key: "tables",
+    name: "Reclamations",
+    key: "reclamations",
     icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/tables",
-    component: <PrivateRoute component={Tables} />,
+    route: "/reclamations",
+    collapse: [
+      {
+        key: "reclamations",
+        route: "/reclamations",
+        component: <PrivateRoute component={Reclamations} roles={["admin", "manager"]} />,
+      },
+      {
+        key: "add",
+        route: "/reclamations/add",
+        component: <PrivateRoute component={AddReclamation} roles={["admin", "manager"]} />,
+      },
+      {
+        key: "view",
+        route: "/reclamations/view",
+        component: <PrivateRoute component={ViewReclamation} roles={["admin", "manager"]} />,
+      },
+    ],
   },
+  {
+    type: "collapse",
+    name: "Users",
+    key: "users",
+    icon: <Icon fontSize="small">table_view</Icon>,
+    route: "/users",
+    collapse: [
+      {
+        key: "list",
+        route: "/users",
+        component: <PrivateRoute component={Users} roles={["admin", "manager"]} />,
+      },
+      {
+        key: "add",
+        route: "/users/add",
+        component: <PrivateRoute component={AddUser} roles={["admin", "manager"]} />,
+      },
+      {
+        key: "view",
+        route: "/users/view",
+        component: <PrivateRoute component={ViewUser} roles={["admin", "manager"]} />,
+      },
+    ],
+  },
+
   {
     type: "collapse",
     name: "Billing",
@@ -91,14 +140,14 @@ const routes = [
   //   route: "/rtl",
   //   component: <RTL />,
   // },
-  {
-    type: "collapse",
-    name: "Notifications",
-    key: "notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/notifications",
-    component: <Notifications />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Notifications",
+  //   key: "notifications",
+  //   icon: <Icon fontSize="small">notifications</Icon>,
+  //   route: "/notifications",
+  //   component: <Notifications />,
+  // },
   {
     type: "collapse",
     name: "Profile",
@@ -108,14 +157,14 @@ const routes = [
     component: <Profile />,
   },
 
-  {
-    type: "collapse",
-    name: "Sign Up",
-    key: "sign-up",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/authentication/sign-up",
-    component: <SignUp />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Sign Up",
+  //   key: "sign-up",
+  //   icon: <Icon fontSize="small">assignment</Icon>,
+  //   route: "/authentication/sign-up",
+  //   component: <SignUp />,
+  // },
   // {
   //   type: "title",
   //   name: "Si",

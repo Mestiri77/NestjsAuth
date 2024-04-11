@@ -54,9 +54,9 @@ function Basic() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+  // useEffect(() => {
+  //   fetchUsers();
+  // }, []);
 
   const fetchUsers = () => {
     axios.get("http://localhost:3001/register").then((res) => {

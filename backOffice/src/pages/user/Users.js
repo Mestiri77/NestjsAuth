@@ -1,57 +1,12 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import {
-    DataGridPremium,
-    GridToolbar,
-    useGridApiRef,
-    useKeepGroupedColumnsHidden,
-} from '@mui/x-data-grid-premium';
-import { useDemoData } from '@mui/x-data-grid-generator';
-import { navbarIconButton } from 'examples/Navbars/DashboardNavbar/styles';
+import { DataGridPremium, GridToolbar } from '@mui/x-data-grid-premium';
+import React from 'react'
 import Icon from "@mui/material/Icon";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import Box from '@mui/material/Box';
 
-export default function DataGridPremiumDemo() {
-    // const { data, loading } = useDemoData({
-    //     dataSet: 'Commodity',
-    //     rowLength: 100,
-    //     editable: true,
-    //     visibleFields: [
-    //         'commodity',
-    //         'quantity',
-    //         'filledQuantity',
-    //         'status',
-    //         'isFilled',
-    //         'unitPrice',
-    //         'unitPriceCurrency',
-    //         'subTotal',
-    //         'feeRate',
-    //         'feeAmount',
-    //         'incoTerm',
-    //     ],
-    // });
-    // const apiRef = useGridApiRef();
-
-    // const initialState = useKeepGroupedColumnsHidden({
-    //     apiRef,
-    //     initialState: {
-    //         ...data.initialState,
-    //         rowGrouping: {
-    //             ...data.initialState?.rowGrouping,
-    //             model: ['commodity'],
-    //         },
-    //         sorting: {
-    //             sortModel: [{ field: '__row_group_by_columns_group__', sort: 'asc' }],
-    //         },
-    //         aggregation: {
-    //             model: {
-    //                 quantity: 'sum',
-    //             },
-    //         },
-    //     },
-    // });
+export default function Users() {
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
         {
@@ -122,31 +77,36 @@ export default function DataGridPremiumDemo() {
         { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
         { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
     ];
-
     return (
-        <Box sx={{ height: 520, width: '100%' }}>
-            <DataGridPremium
-                // {...data}
-                // apiRef={apiRef}
-                // loading={loading}
-                // // disableRowSelectionOnClick
-                // initialState={initialState}
-                rows={rows}
-                columns={columns}
-                initialState={{
-                    pagination: {
-                        paginationModel: {
-                            pageSize: 7,
-                        },
-                    },
-                }}
-                pagination
-                pageSizeOptions={[7]}
-                checkboxSelection
-                disableRowSelectionOnClick
-                slots={{ toolbar: GridToolbar }}
-            // checkboxSelection
-            />
-        </Box>
-    );
+        <div>
+           
+                <Box sx={{ height: 520, width: '100%' }}>
+                    <DataGridPremium
+                        // {...data}
+                        // apiRef={apiRef}
+                        // loading={loading}
+                        // // disableRowSelectionOnClick
+                        // initialState={initialState}
+                        rows={rows}
+                        columns={columns}
+                        initialState={{
+                            pagination: {
+                                paginationModel: {
+                                    pageSize: 7,
+                                },
+                            },
+                        }}
+                        pagination
+                        pageSizeOptions={[7]}
+                        checkboxSelection
+                        disableRowSelectionOnClick
+                        slots={{ toolbar: GridToolbar }}
+                    // checkboxSelection
+                    />
+                </Box>
+
+
+
+        </div>
+    )
 }

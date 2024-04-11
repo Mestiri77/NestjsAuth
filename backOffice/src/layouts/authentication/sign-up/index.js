@@ -50,9 +50,9 @@ function Cover() {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
 
-    useEffect(() => {
-      fetchUsers();
-    }, []);
+    // useEffect(() => {
+    //   fetchUsers();
+    // }, []);
 
     const fetchUsers = () => {
       axios.get("http://localhost:3001/register").then((res) => {

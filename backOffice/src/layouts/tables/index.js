@@ -31,10 +31,11 @@ import DataTable from "examples/Tables/DataTable";
 import authorsTableData from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
 // import { Button } from "react-bootstrap";
-import { ButtonBase } from "@mui/material";
-import Button from "@mui/material/Button";
-import EnhancedTable from "./TableM";
-import BasicDemo from "./TableM";
+// import { ButtonBase } from "@mui/material";
+// import Button from "@mui/material/Button";
+// import EnhancedTable from "./TableM";
+// import BasicDemo from "./TableM";
+import DataGridPremiumDemo from "./TableM";
 
 function Tables() {
   const { columns, rows } = authorsTableData();
@@ -43,7 +44,7 @@ function Tables() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <BasicDemo />
+      <DataGridPremiumDemo />
       {/* <EnhancedTable /> */}
       {/* <MDBox pt={6} pb={3}>
         <Grid container spacing={6}>
