@@ -1,17 +1,18 @@
 import { DataGridPremium, GridToolbar } from '@mui/x-data-grid-premium';
+import DashboardLayout from 'examples/LayoutContainers/DashboardLayout'
+import { DashboardNavbar } from 'examples/Navbars/DashboardNavbar/DashboardNavbar'
 import React from 'react'
 import Icon from "@mui/material/Icon";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Box from '@mui/material/Box';
-import SendIcon from '@mui/icons-material/Send';
+import { useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import { useNavigate } from 'react-router-dom'
 
-export default function Users() {
-    const navigate = useNavigate();
+export default function Clients() {
+    const navigate = useNavigate()
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
         {
@@ -27,12 +28,25 @@ export default function Users() {
             editable: true,
         },
         {
-            field: 'age',
-            headerName: 'Age',
-            type: 'number',
+            field: 'cin',
+            headerName: 'CIN',
+            width: 150,
+            editable: true,
+        },
+        {
+            field: 'email',
+            headerName: 'Email',
+            type: 'email',
             width: 110,
             editable: true,
         },
+        // {
+        //     field: 'age',
+        //     headerName: 'Age',
+        //     type: 'number',
+        //     width: 110,
+        //     editable: true,
+        // },
         {
             field: 'fullName',
             headerName: 'Full name',
@@ -61,8 +75,9 @@ export default function Users() {
                             size="small"
                             disableRipple
                             color="inherit"
-                        // sx={navbarIconButton}
-                        // onClick={}
+                            // sx={navbarIconButton}
+                            // onClick={}
+                            onClick={() => { navigate('view') }}
                         >
                             <EditIcon />
                         </IconButton>
@@ -84,9 +99,10 @@ export default function Users() {
     ];
     return (
         <div>
+
             <div className='d-flex justify-content-end p-4'>
                 <Button onClick={() => { navigate('add') }} endIcon={<PersonAddIcon />}>
-                    Ajouter User
+                    Ajouter Client
                 </Button>
             </div>
             <Box sx={{ height: 520, width: '100%' }}>

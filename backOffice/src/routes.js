@@ -56,6 +56,11 @@ import ViewReclamation from "pages/reaclamation/ViewReclamation";
 import AddUser from "pages/user/AddUser";
 import ViewUser from "pages/user/ViewUser";
 import AddReclamation from "pages/reaclamation/AddReaclamation";
+import Acceuil from "pages/Acceuil";
+import Basic from "pages/LoginTest";
+import Clients from "pages/client/Clients";
+import AddClient from "pages/client/AddClient";
+import ViewClient from "pages/client/ViewClient";
 
 const routes = [
   // {
@@ -107,7 +112,7 @@ const routes = [
     route: "/users",
     collapse: [
       {
-        key: "list",
+        key: "listUsers",
         route: "/users",
         component: <PrivateRoute component={Users} roles={["admin", "manager"]} />,
       },
@@ -120,6 +125,29 @@ const routes = [
         key: "view",
         route: "/users/view",
         component: <PrivateRoute component={ViewUser} roles={["admin", "manager"]} />,
+      },
+    ],
+  }, {
+    type: "collapse",
+    name: "Clients",
+    key: "clients",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/clients",
+    collapse: [
+      {
+        key: "listClient",
+        route: "/clients",
+        component: <PrivateRoute component={Clients} roles={["admin", "manager"]} />,
+      },
+      {
+        key: "add",
+        route: "/clients/add",
+        component: <PrivateRoute component={AddClient} roles={["admin", "manager"]} />,
+      },
+      {
+        key: "view",
+        route: "/clients/view",
+        component: <PrivateRoute component={ViewClient} roles={["admin", "manager"]} />,
       },
     ],
   },
@@ -156,15 +184,24 @@ const routes = [
     route: "/profile",
     component: <Profile />,
   },
+  {
+    type: "collapse",
+    name: "Acceuil",
+    key: "acceuil",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/acceuil",
+    component: <Acceuil />,
+  },
 
-  // {
-  //   type: "collapse",
-  //   name: "Sign Up",
-  //   key: "sign-up",
-  //   icon: <Icon fontSize="small">assignment</Icon>,
-  //   route: "/authentication/sign-up",
-  //   component: <SignUp />,
-  // },
+  {
+    type: "collapse",
+    name: "Sign In client",
+    key: "sign-up-client",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/authentication/client/sign-in",
+    component: <Basic />,
+  },
+
   // {
   //   type: "title",
   //   name: "Si",
