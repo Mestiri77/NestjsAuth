@@ -53,6 +53,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Spinner from "react-bootstrap/Spinner";
+import Acceuil from "pages/Acceuil";
+import Basic from "pages/LoginTest";
+import Cover from "layouts/authentication/reset-password/cover"
+import SignUp from "layouts/authentication/sign-up";
+import "assets/style/effect.css";
+
 export const UserContext = createContext();
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -72,16 +78,21 @@ export default function App() {
   const { pathname } = useLocation();
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       setUser({ role: "admin", fistName: "Yassin", lastName: "Louhichi" });
       setIsLoading(false);
     } else {
-      navigate("/authentication/sign-in");
+      // navigate("/authentication/sign-in");//***************************** */
       setIsLoading(false);
     }
-  }, [user]);
+  }, []); //[user] infini loop
+
+
+
   //   // Cache for the rtl
   //   // useMemo(() => {
   //   //   const cacheRtl = createCache({
@@ -189,12 +200,17 @@ export default function App() {
               {/* <Route path='/dashboard' element={<PrivateRoute component={Dashboard} />} /> */}
               {getRoutes(routes)},
               <Route path="*" element={<Navigate to="/dashboard" />} />
+              {/* <Route path="/acceuil" element={<Acceuil />} /> */}
             </Routes>
           </DashboardLayout>
         ) : (
           <Routes>
+            <Route index element={<Acceuil />} />
+            <Route path="/authentication/client/sign-in" element={<Basic />} />
             <Route path="/authentication/sign-in" element={<SignIn />} />
+            <Route path="/reset-password" element={<Cover />} />
             <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
+            <Route path="/authentication/client/sign-up" element={<SignUp />} />
           </Routes>
         )}
       </ThemeProvider>

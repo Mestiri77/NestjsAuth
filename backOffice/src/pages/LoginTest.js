@@ -111,11 +111,12 @@ function Basic() {
                                 Don&apos;t have an account?{" "}
                                 <MDTypography
                                     component={Link}
-                                    to="/authentication/sign-up"
+                                    to="/authentication/client/sign-up"
                                     variant="button"
                                     color="info"
                                     fontWeight="medium"
                                     textGradient
+
                                 >
                                     Sign up
                                 </MDTypography>

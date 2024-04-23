@@ -9,12 +9,17 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
+// datasource db {
+//   provider = "mongodb"
+//   url      = env("DATABASE_URL")
+// }
+
 model User {
-  id         Int       @id
+  id         Int       @id @default(autoincrement())
   login      String    @unique
   password   String
   isClient   Boolean   @default(true)
@@ -26,7 +31,7 @@ model User {
 
 model Employer {
   id   Int    @id @default(autoincrement())
-  user User[]
+  user User[] //relasion many to one
   role String
 }
 
@@ -38,6 +43,7 @@ model Client {
   FullName  String
   email     String @unique
   cin       String @unique
+  contact   String
 }
 
 model Reclamations {

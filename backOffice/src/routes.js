@@ -61,6 +61,7 @@ import Basic from "pages/LoginTest";
 import Clients from "pages/client/Clients";
 import AddClient from "pages/client/AddClient";
 import ViewClient from "pages/client/ViewClient";
+import ReclamationTest from "pages/ReclamationTest";
 
 const routes = [
   // {
@@ -184,24 +185,39 @@ const routes = [
     route: "/profile",
     component: <Profile />,
   },
-  {
-    type: "collapse",
-    name: "Acceuil",
-    key: "acceuil",
-    icon: <Icon fontSize="small">person</Icon>,
-    route: "/acceuil",
-    component: <Acceuil />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Acceuil",
+  //   key: "acceuil",
+  //   icon: <Icon fontSize="small">person</Icon>,
+  //   route: "/acceuil",
+  //   component: <Acceuil />,
+  // },
 
   {
     type: "collapse",
     name: "Sign In client",
-    key: "sign-up-client",
+    key: "sign-in-client",
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/authentication/client/sign-in",
     component: <Basic />,
   },
-
+  {
+    type: "collapse",
+    name: "Sign Up Client",
+    key: "sign-up-client",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/authentication/client/sign-up",
+    component: <SignUp />,
+  },
+  {
+    type: "collapse",
+    name: "ReclamationClient",
+    key: "reclamation-client",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/authentication/client/ReclamationTest",
+    component: <ReclamationTest />,
+  },
   // {
   //   type: "title",
   //   name: "Si",
