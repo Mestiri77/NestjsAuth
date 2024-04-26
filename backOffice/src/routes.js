@@ -51,17 +51,20 @@ import PrivateRoute from "./PrivateRoute";
 
 import Users from "pages/user/Users";
 
-import Reclamations from "pages/reaclamation/Reclamations";
-import ViewReclamation from "pages/reaclamation/ViewReclamation";
+
 import AddUser from "pages/user/AddUser";
 import ViewUser from "pages/user/ViewUser";
-import AddReclamation from "pages/reaclamation/AddReaclamation";
+import AddReclamation from "pages/reclamation/AddReclamation";
 import Acceuil from "pages/Acceuil";
 import Basic from "pages/LoginTest";
 import Clients from "pages/client/Clients";
 import AddClient from "pages/client/AddClient";
 import ViewClient from "pages/client/ViewClient";
-import ReclamationTest from "pages/ReclamationTest";
+import ViewClientReclamation from "pages/clients-reclamations/ViewClientReclamation";
+import ClientReclamation from "pages/clients-reclamations/ClientReclamation";
+import AddClientReclamation from "pages/clients-reclamations/AddClientReclamation";
+import Reclamations from "pages/reclamation/Reclamations";
+import ViewReclamation from "pages/reclamation/ViewReclamation";
 
 const routes = [
   // {
@@ -152,6 +155,30 @@ const routes = [
       },
     ],
   },
+  {
+    type: "collapse",
+    name: "Clients Reclamation",
+    key: "clients-reclamations",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/clients/reclamations",
+    collapse: [
+      {
+        key: "list-clients-reclamations",
+        route: "/clients/reclamations",
+        component: <PrivateRoute component={ClientReclamation} roles={["admin", "manager"]} />,
+      },
+      {
+        key: "add",
+        route: "/clients/reclamations/add",
+        component: <PrivateRoute component={AddClientReclamation} roles={["admin", "manager"]} />,
+      },
+      {
+        key: "view",
+        route: "/clients/view",
+        component: <PrivateRoute component={ViewClientReclamation} roles={["admin", "manager"]} />,
+      },
+    ],
+  },
 
   {
     type: "collapse",
@@ -210,14 +237,14 @@ const routes = [
     route: "/authentication/client/sign-up",
     component: <SignUp />,
   },
-  {
-    type: "collapse",
-    name: "ReclamationClient",
-    key: "reclamation-client",
-    icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/authentication/client/ReclamationTest",
-    component: <ReclamationTest />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "ReclamationClient",
+  //   key: "reclamation-client",
+  //   icon: <Icon fontSize="small">assignment</Icon>,
+  //   route: "/authentication/client/ReclamationTest",
+  //   component: <ReclamationTest />,
+  // },
   // {
   //   type: "title",
   //   name: "Si",
