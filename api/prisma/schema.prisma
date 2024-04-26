@@ -19,36 +19,41 @@ datasource db {
 // }
 
 model User {
-  id         Int       @id @default(autoincrement())
-  login      String    @unique
-  password   String
-  isClient   Boolean   @default(true)
+  id        String  @id @default(uuid())
+  login     String  @unique
+  password  String
+  email     String
+  firstName String
+  lastName  String
+  FullName  String
+  isClient  Boolean @default(true)
+
   Employer   Employer? @relation(fields: [employerId], references: [id])
-  employerId Int?
+  employerId String?
   Client     Client?   @relation(fields: [clientId], references: [id])
-  clientId   Int?
+  clientId   String?
 }
 
 model Employer {
-  id   Int    @id @default(autoincrement())
+  id   String @id @default(uuid())
   user User[] //relasion many to one
   role String
 }
 
 model Client {
-  id        Int    @id @default(autoincrement())
-  user      User[]
-  firstName String
-  lastName  String
-  FullName  String
-  email     String @unique
-  cin       String @unique
-  contact   String
+  id      String @id @default(uuid())
+  user    User[]
+  // firstName String
+  // lastName  String
+  // FullName  String
+  // email     String @unique
+  cin     String @unique
+  contact String
 }
 
-model Reclamations {
-  id          Int    @id @default(autoincrement())
-  refRec      String
+model Reclamation {
+  id          String @id @default(uuid())
+  refRec      String @default("R000001")
   observation String
   documentURL String
   description String
@@ -56,5 +61,5 @@ model Reclamations {
 }
 
 model Reponse {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
 }

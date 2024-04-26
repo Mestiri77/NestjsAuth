@@ -7,8 +7,8 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-  // create two dummy articles
-  const reclamations1 = await prisma.reclamations.create({
+  // // create two dummy articles
+  const reclamations1 = await prisma.reclamation.create({
   data:{
     refRec      :"R0001",
     observation :"observation",

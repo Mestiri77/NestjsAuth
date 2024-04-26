@@ -9,26 +9,26 @@ export class ReclamationsService {
   constructor(private prisma: PrismaService) {}
 
   async create(createReclamationDto: CreateReclamationDto) {
-    return await this.prisma.reclamations.create({ data: createReclamationDto });
+    return await this.prisma.reclamation.create({ data: createReclamationDto });
 
   }
 
   async findAll() {
-    return await this.prisma.reclamations.findMany();
+    return await this.prisma.reclamation.findMany();
   }
 
-  async findOne(id: number) {
-    return await this.prisma.reclamations.findUnique({ where: { id } });
+  async findOne(id: string) {
+    return await this.prisma.reclamation.findUnique({ where: { id } });
   }
 
-  async update(id: number, updateReclamationDto: UpdateReclamationDto) {
-    return await this.prisma.reclamations.update({
+  async update(id: string, updateReclamationDto: UpdateReclamationDto) {
+    return await this.prisma.reclamation.update({
       where: { id },
       data: updateReclamationDto,
     });
   }
 
-  async remove(id: number) {
-    return await this.prisma.reclamations.delete({ where: { id } });
+  async remove(id: string) {
+    return await this.prisma.reclamation.delete({ where: { id } });
   }
 }
