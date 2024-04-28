@@ -17,6 +17,15 @@ async function main() {
     status      :"status"
   }
   });
+  const reclamations2 = await prisma.reclamation.create({
+    data:{
+      refRec      :"R0002",
+      observation :"observation",
+      documentURL :"documentURL",
+      description:"description",
+      status      :"status"
+    }
+    });
 
 //   const post2 = await prisma.article.upsert({
 //     where: { title: "What's new in Prisma? (Q1/22)" },
