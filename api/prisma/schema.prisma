@@ -20,12 +20,11 @@ datasource db {
 
 model User {
   id        String  @id @default(uuid())
-  login     String  @unique
+  userName    String  @unique
   password  String
-  email     String
+  email     String    @unique
   firstName String
   lastName  String
-  FullName  String
   isClient  Boolean @default(true)
 
   Employer   Employer? @relation(fields: [employerId], references: [id])
