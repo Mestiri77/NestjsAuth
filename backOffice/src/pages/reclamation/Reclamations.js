@@ -1,19 +1,43 @@
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import DashboardLayout from 'examples/LayoutContainers/DashboardLayout'
 import { DashboardNavbar } from 'examples/Navbars/DashboardNavbar/DashboardNavbar'
-import React, { useEffect, useState } from 'react'
+import React, { forwardRef, useEffect, useState } from 'react'
 import Icon from "@mui/material/Icon";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Box from '@mui/material/Box';
-import { Button } from 'react-bootstrap'
 import MDButton from "components/MDButton";
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
+// import Dialog from 'components/MyCompo/Dialog';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from '@mui/material';
+
+
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 
 export default function Reclamations() {
+
+  const [selectedId, setSelectedId] = useState("");
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleDelete = async () => {
+    const response = await
+      axios
+        .delete(`http://localhost:3001/reclamations/${selectedId}`)
+  }
+
   const [rows, setRows] = useState([]);
   const fetchReclamation = async () => {
     try {
@@ -28,7 +52,8 @@ export default function Reclamations() {
 
   useEffect(() => {
     fetchReclamation()
-  }, [])
+  }, [selectedId])
+
   console.log(rows); //infinite loop error **********************************
 
   const navigate = useNavigate()
@@ -67,27 +92,24 @@ export default function Reclamations() {
       width: 110,
       editable: true,
     },
-    // {
-    //   field: 'fullName',
-    //   headerName: 'Full name',
-    //   description: 'This column has a value getter and is not sortable.',
-    //   sortable: false,
-    //   width: 160,
-    //   valueGetter: (value, row) => `${row.firstName || ''} ${row.lastName || ''}`,
-    // },
+
     {
       field: "action",
       headerName: "Action",
       sortable: false,
       renderCell: (params) => {
+
         return (
           <div>
             <IconButton
               size="small"
               disableRipple
               color="inherit"
-            // sx={navbarIconButton}
-            // onClick={}
+              // sx={navbarIconButton}
+              onClick={() => {
+                handleClickOpen()
+                setSelectedId(params.row.id)
+              }}
             >
               <DeleteIcon />
             </IconButton>
@@ -147,6 +169,30 @@ export default function Reclamations() {
         // checkboxSelection
         />
       </Box>
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Let Google help apps determine location. This means sending anonymous
+            location data to Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
+          <Button
+            onClick={() => {
+              handleDelete()
+              handleClose()
+              setSelectedId("")
+            }}>Agree</Button>
+        </DialogActions>
+      </Dialog>
       {/* <Box sx={{ height: 400, width: '100%' }}>
         <DataGrid
           rows={rows}
